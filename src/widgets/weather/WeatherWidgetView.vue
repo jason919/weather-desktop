@@ -18,7 +18,7 @@ useWidget()
             <div class="text-4xl">
               {{ weatherData.temp }}
             </div>
-            <span>℃</span>
+            <span>F</span>
             <img
               style="position: absolute;right: 24px;top:24px" width="32px"
               :src="`/weather/image/${weatherData.icon}.png`"
