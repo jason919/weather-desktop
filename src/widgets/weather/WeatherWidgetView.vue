@@ -3,10 +3,18 @@ import { LocalTwo } from '@icon-park/vue-next'
 import { useWidget } from '@widget-js/vue3'
 import QWeatherWrapper from '@/component/QWeatherWrapper.vue'
 import { useQWeatherApi } from '@/hook/useQWeatherApi'
+import {  useStorage } from '@vueuse/core'
 
 const { errorMsg, weatherData, backgroundClass, selectLocation } = useQWeatherApi()
 
 useWidget()
+
+let isCelsius = true
+const selectedUnit = useStorage('selectedUnit', 'C')
+if (selectedUnit.value  == 'F') {
+  isCelsius = false;
+}
+ 
 </script>
 
 <template>
@@ -18,7 +26,8 @@ useWidget()
             <div class="text-4xl">
               {{ weatherData.temp }}
             </div>
-            <span>F</span>
+            <span v-if="isCelsius">°C</span>
+            <span v-else>°F</span>
             <img
               style="position: absolute;right: 24px;top:24px" width="32px"
               :src="`/weather/image/${weatherData.icon}.png`"

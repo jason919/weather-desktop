@@ -14,6 +14,7 @@ const loading = ref(false)
 const { widgetParams, save } = useWidget()
 
 const locationId = useStorage('locationId', DEFAULT_LOCATION.id)
+const selectedUnit = useStorage('selectedUnit', 'C')
 const apiKey = useStorage('apiKey', '')
 const selectLocation = useStorage<GeoLocation>('selectLocation', DEFAULT_LOCATION)
 const locations = ref<GeoLocation[]>([selectLocation.value])
@@ -67,6 +68,12 @@ function viewQWeather() {
   >
     <template #custom>
       <el-form label-width="70">
+        <el-form-item label="温度单位">
+          <el-select v-model="selectedUnit" placeholder="摄氏温度">
+            <el-option label="摄氏温度" value="C" />
+            <el-option label="华氏温度" value="F" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="地址">
           <el-select
             v-model="locationId"

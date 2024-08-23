@@ -44,10 +44,13 @@ export function useQWeatherApi(option?: { useIndex?: boolean, useAir?: boolean, 
       updateWeather3d()
     }
     QWeatherApi.weatherNow(selectLocation.value.id, apiKey.value).then((res) => {
-      let cTemp = Number(res.now.temp);
-      let fTemp = (cTemp * 9 / 5) + 32;
-    
-      res.now.temp = fTemp + "";
+      const selectedUnit = useStorage('selectedUnit', 'C')
+      if (selectedUnit.value  == 'F') {
+        let cTemp = Number(res.now.temp);
+        let fTemp = (cTemp * 9 / 5) + 32;
+      
+        res.now.temp = fTemp + "";
+      }
       responseData.value = res
     }).catch((e) => {
       errorMsg.value = e.message
